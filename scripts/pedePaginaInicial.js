@@ -31,7 +31,15 @@ Içamento/Hoisting de declarações:
         let paginaInicial = 'http://google.com'
 */
 
-const paginaInicial = prompt("Escolha a página inicial")
+let paginaInicial = prompt("Escolha a página inicial")
+
+if (
+    paginaInicial.substring(0, 7) !== 'http://' &&
+    paginaInicial.substring(0,8) !== 'https://'
+) {
+    // Assignement Atribuição
+    paginaInicial = 'http://' + paginaInicial
+}
 
 $janelaPrincipal.src =  paginaInicial
 $inputEndereco.value = paginaInicial
