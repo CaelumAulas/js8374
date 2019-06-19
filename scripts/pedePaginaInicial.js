@@ -66,19 +66,18 @@ Type coercing
         const paginaInicial = null
         paginaInicial == 'null' // true
 
-    Já no caso de 3 iguais `===`, isso nãoo acontece:
+    Já no caso de 3 iguais `===`, isso não acontece:
         const paginaInicial = null
         paginaInicial === 'null' // true
-
 
 */
 // TODO Onde usar IIFEs hoje em dia?
 // TODO A desgraça dos ESModules no Node
+// TODO Babel IIFEs / CommonJS / AMD / System
 
-import aceitouSalvar from './aceitouAnteriormente.js'
+import aceitouSalvar from './aceitouSalvar.js'
 
-if(aceitouSalvar === null){
-    
+if(aceitouSalvar === null || aceitouSalvar === true){    
     let paginaInicial = localStorage.getItem('paginaInicial')
 
     if(!paginaInicial) {
@@ -99,5 +98,4 @@ if(aceitouSalvar === null){
 
         localStorage.setItem('paginaInicial', paginaInicial)
     }
-
 }
