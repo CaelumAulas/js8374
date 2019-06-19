@@ -72,14 +72,19 @@ Type coercing
 
 
 */
+// TODO Onde usar IIFEs hoje em dia?
+// TODO A desgraça dos ESModules no Node
 
-if (aceitouSalvar) {
-    let paginaInicial = localStorage.getItem('paginaInicial')
+import aceitouSalvar from './aceitouAnteriormente.js'
+
+if(aceitouSalvar === null){
     
+    let paginaInicial = localStorage.getItem('paginaInicial')
+
     if(!paginaInicial) {
         paginaInicial = prompt("Escolha a página inicial")
     }
-    
+
     if(paginaInicial) {
         if (
             paginaInicial.substring(0, 7) !== 'http://' &&
@@ -88,10 +93,11 @@ if (aceitouSalvar) {
             // Assignement Atribuição
             paginaInicial = 'http://' + paginaInicial
         }
-    
+
         $janelaPrincipal.src =  paginaInicial
         $inputEndereco.value = paginaInicial
-    
+
         localStorage.setItem('paginaInicial', paginaInicial)
     }
+
 }

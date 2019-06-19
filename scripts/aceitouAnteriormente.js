@@ -121,22 +121,50 @@
     o código do nosso módulo.
     
     Esse é o único jeito de criar módulos no ECMAScript antigo.
+
+
+        Pessoal do node não quis isso e adotou um padrão chamado "CommonJS". Nele, todo arquivo já é um módulo. E nenhuma variável 
+    é colocada no escopo global.
+
+    Foi criado um mecanismo de importação e exportação de valores.
+
+    Quando algum arquivo quer acessar informações de outro:
+        
+        // Arquivo a.js
+        const valorDeOutroArquivo = require('b.js')
+
+        ---
+
+        //Arquivo b.js
+        const valorExportado = 2
+
+        module.exports = valorExportado
+
+    Isso não funciona nos navegadoresm por padrão. Esse padrão foi o adotado pelo Node.
+
+    Assim, com dois jeitos de fazer JS, a ECMA elaborou os ESModules que estamos usando nesse código.
+
+    Eles não sã suportados por padrão no Node, ainda há muita discussão sobre como será implementado.
+    
+    Os navegadores mais novos já conseguem usar esses módulos se identificarmos nosso arquivo 
+    como um módulo lá na tag `<script type="module">`
+
+    Em qualquer outro caso (navegadores mais antigos e Node), se você esrtiver usando `import` e `export`, você
+    com certeza está transformando seu código em IIFEs ou CommonJS ou algum outro padrão, 
+    através de um compilador, como o Babel.
 */
 
-const aceitouSalvar = (function() {
-    "use strict"
-    const aceitouAnteriormente = localStorage.getItem("aceitouSalvar")
-    
-    let aceitouSalvar
-    
-    if(!aceitouAnteriormente){
-        aceitouSalvar = confirm('Você aceita que a gente salve suas informações?')    
-        if(!aceitouSalvar) {
-            alert('Você pode mudar isso na página de configurações')
-        }
-        
-        localStorage.setItem("aceitouSalvar", aceitouSalvar)
+const aceitouAnteriormente = localStorage.getItem("aceitouSalvar")
+
+let aceitouSalvar
+
+if(!aceitouAnteriormente){
+    aceitouSalvar = confirm('Você aceita que a gente salve suas informações?')    
+    if(!aceitouSalvar) {
+        alert('Você pode mudar isso na página de configurações')
     }
     
-    return aceitouSalvar
-})()
+    localStorage.setItem("aceitouSalvar", aceitouSalvar)
+}
+
+export default aceitouSalvar
