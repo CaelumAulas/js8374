@@ -1,4 +1,4 @@
-if(localStorage.getItem('aceitouTermos') === null){
+if(!localStorage.getItem('aceitouTermos')){
     // CONST é Variável. Dinâmico
     const nome = prompt('Qual o seu nome')
 

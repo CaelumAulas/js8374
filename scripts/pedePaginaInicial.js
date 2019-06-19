@@ -29,18 +29,67 @@ Içamento/Hoisting de declarações:
     ECMAScript fez uma nova forma de declarar variáveis que segue as outras linguagens:
         const paginaInicial = 'http://google.com'
         let paginaInicial = 'http://google.com'
+    
+Type coercing
+    O seguinte código: 
+        if (paginaInicial !== null && paginaInicial == '') {}
+    
+    Pode ter o mesmo efeito que esse código:
+        if (paginaInicial) {}
+    
+    Quando digo "pode" ter o mesmo efeito é porque o que está acontecendo alí é a conversão de 
+    `paginaInicial` para booleano:
+        Boolean(paginaInicial)
+    
+    Esse código pode ter o resultado `false` para os seguintes valores:
+        Boolean(null)
+        Boolean(undefined)
+        Boolean('')
+        Boolean(0)
+        Boolean(NaN)
+
+    Ou seja, fazer `if (paginaInicial)` significa muito mais condições 
+    do que `if (paginaInicial !== null && paginaInicial == '')`
+
+    Essa conversão de tipos que é feita pelo JavaScript e não pelo nosso código 
+    é chamada de *Implicit Type Coercion*
+
+    Ela sempre vai acontecer quando algum tipo específico é esperado, no caso do `if()`, um Booleano.
+
+    Um caso de type coercion acontece quando fazemos uma concatenação:
+        Se página inicial for null: 
+            'http://' + paginaInicial 
+
+        `paginaInicial` será con vertida para a string 'null' e terá como resultado: 'http://null' 
+
+    Em uma operação/comparação de igualdade com 2 iguais `==` isso também acontece:
+        const paginaInicial = null
+        paginaInicial == 'null' // true
+
+    Já no caso de 3 iguais `===`, isso nãoo acontece:
+        const paginaInicial = null
+        paginaInicial === 'null' // true
+
+
 */
 
-let paginaInicial = prompt("Escolha a página inicial")
+let paginaInicial = localStorage.getItem('paginaInicial')
 
-if (
-    paginaInicial.substring(0, 7) !== 'http://' &&
-    paginaInicial.substring(0,8) !== 'https://'
-) {
-    // Assignement Atribuição
-    paginaInicial = 'http://' + paginaInicial
+if(!paginaInicial) {
+    paginaInicial = prompt("Escolha a página inicial")
 }
 
-$janelaPrincipal.src =  paginaInicial
-$inputEndereco.value = paginaInicial
+if(paginaInicial) {
+    if (
+        paginaInicial.substring(0, 7) !== 'http://' &&
+        paginaInicial.substring(0,8) !== 'https://'
+    ) {
+        // Assignement Atribuição
+        paginaInicial = 'http://' + paginaInicial
+    }
 
+    $janelaPrincipal.src =  paginaInicial
+    $inputEndereco.value = paginaInicial
+
+    localStorage.setItem('paginaInicial', paginaInicial)
+}
