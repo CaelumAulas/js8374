@@ -75,27 +75,29 @@ Type coercing
 // TODO A desgraça dos ESModules no Node
 // TODO Babel IIFEs / CommonJS / AMD / System
 
-import aceitouSalvar from './aceitouSalvar.js'
+import aceitouSalvar from '/scripts/storage/aceitouSalvar.js'
+import paginaInicial from '/scripts/storage/paginaInicial.js'
 
-if(aceitouSalvar === null || aceitouSalvar === true){    
-    let paginaInicial = localStorage.getItem('paginaInicial')
+if(aceitouSalvar === null || aceitouSalvar === true){
+    // Sem shadowing
+    let paginaInicialDefault = paginaInicial
 
-    if(!paginaInicial) {
-        paginaInicial = prompt("Escolha a página inicial")
+    if(!paginaInicialDefault) {
+        paginaInicialDefault = prompt("Escolha a página inicial")
     }
 
-    if(paginaInicial) {
+    if(paginaInicialDefault) {
         if (
-            paginaInicial.substring(0, 7) !== 'http://' &&
-            paginaInicial.substring(0,8) !== 'https://'
+            paginaInicialDefault.substring(0, 7) !== 'http://' &&
+            paginaInicialDefault.substring(0,8) !== 'https://'
         ) {
             // Assignement Atribuição
-            paginaInicial = 'http://' + paginaInicial
+            paginaInicialDefault = 'http://' + paginaInicialDefault
         }
 
-        $janelaPrincipal.src =  paginaInicial
-        $inputEndereco.value = paginaInicial
+        $janelaPrincipal.src =  paginaInicialDefault
+        $inputEndereco.value = paginaInicialDefault
 
-        localStorage.setItem('paginaInicial', paginaInicial)
+        localStorage.setItem('paginaInicial', paginaInicialDefault)
     }
 }
