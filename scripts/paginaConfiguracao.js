@@ -12,8 +12,18 @@ $botaoSalvar.onclick = salvar
 // função de callback
 // hoisting
 // função é um tipo de dado
-// executada em um outro momnento do tempo
+// executada em um outro momento do tempo
+// Declaração de função
+// Function declaration
 function salvar(){
-    storageAceitouSalvar.setAceitouSalvar($inputPermitiuSalvar.checked)
+
+    // Expressão de função
+    // Function expression
+    const funcaoEscolhida = $inputPermitiuSalvar.checked === true 
+        ? storageAceitouSalvar.setAceitou
+        : storageAceitouSalvar.setNaoAceitou
+    
+    funcaoEscolhida()
+
     storagePaginaInicial.setPaginaInicial($inputPaginaInicial.value)
 }

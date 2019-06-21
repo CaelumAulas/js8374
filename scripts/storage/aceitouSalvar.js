@@ -5,7 +5,15 @@ export let aceitouSalvar = JSON.parse(localStorage.getItem('aceitouSalvar')) //n
 // Ambiente onde ela foi criada
 // Acesso a variaveis do ambiente
 // function setAceitouSalvar é uma "Closure"
-export function setAceitouSalvar(valor) {
+function setAceitouSalvar(valor) {
     aceitouSalvar = valor
     localStorage.setItem("aceitouSalvar", valor)
+}
+
+export function setAceitou() {
+    setAceitouSalvar(true)
+}
+
+export function setNaoAceitou() {
+    setAceitouSalvar(false)
 }
