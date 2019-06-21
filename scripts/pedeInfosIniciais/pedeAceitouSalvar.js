@@ -154,7 +154,7 @@
     através de um compilador, como o Babel.
 */
 
-import aceitouSalvar from '/scripts/storage/aceitouSalvar.js'
+import aceitouSalvar, {setAceitouSalvar} from '/scripts/storage/aceitouSalvar.js'
 
 if(aceitouSalvar === null){
     // shadowing/sombra no módulo
@@ -165,5 +165,5 @@ if(aceitouSalvar === null){
         alert('Você pode mudar isso na página de configurações')
     }
     
-    localStorage.setItem("aceitouSalvar", aceitouSalvar)
+    setAceitouSalvar(aceitouSalvar)
 }
