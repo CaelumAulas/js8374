@@ -1,8 +1,8 @@
-import paginaInicial, { setPaginaInicial } from '/scripts/storage/paginaInicial.js'
-import aceitouSalvar, { setAceitouSalvar }  from '/scripts/storage/aceitouSalvar.js'
+import * as storagePaginaInicial from '/scripts/storage/paginaInicial.js'
+import * as storageAceitouSalvar  from '/scripts/storage/aceitouSalvar.js'
 
-$inputPaginaInicial.value = paginaInicial
-$inputPermitiuSalvar.checked = aceitouSalvar
+$inputPaginaInicial.value = storagePaginaInicial.paginaInicial
+$inputPermitiuSalvar.checked = storageAceitouSalvar.aceitouSalvar
 
 
 // o que vai ser executado quando clicar
@@ -14,6 +14,6 @@ $botaoSalvar.onclick = salvar
 // função é um tipo de dado
 // executada em um outro momnento do tempo
 function salvar(){
-    setAceitouSalvar($inputPermitiuSalvar.checked)
-    setPaginaInicial($inputPaginaInicial.value)
+    storageAceitouSalvar.setAceitouSalvar($inputPermitiuSalvar.checked)
+    storagePaginaInicial.setPaginaInicial($inputPaginaInicial.value)
 }

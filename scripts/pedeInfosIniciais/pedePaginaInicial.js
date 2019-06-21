@@ -75,10 +75,10 @@ Type coercing
 // TODO A desgraça dos ESModules no Node
 // TODO Babel IIFEs / CommonJS / AMD / System
 
-import aceitouSalvar from '/scripts/storage/aceitouSalvar.js'
-import paginaInicial, {setPaginaInicial} from '/scripts/storage/paginaInicial.js'
+import { aceitouSalvar as storageAceitouSalvar } from '/scripts/storage/aceitouSalvar.js'
+import { paginaInicial, setPaginaInicial } from '/scripts/storage/paginaInicial.js'
 
-if(aceitouSalvar === null || aceitouSalvar === true){
+if(storageAceitouSalvar === null || storageAceitouSalvar === true){
     // Sem shadowing
     let paginaInicialDefault = paginaInicial
 

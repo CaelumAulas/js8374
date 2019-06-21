@@ -154,9 +154,9 @@
     através de um compilador, como o Babel.
 */
 
-import aceitouSalvar, {setAceitouSalvar} from '/scripts/storage/aceitouSalvar.js'
+import * as storageAceitouSalvar from '/scripts/storage/aceitouSalvar.js'
 
-if(aceitouSalvar === null){
+if(storageAceitouSalvar.aceitouSalvar === null){
     // shadowing/sombra no módulo
     // redeclerando com o mesmo nome
     const aceitouSalvar = confirm('Você aceita que a gente salve suas informações?')    
@@ -165,5 +165,6 @@ if(aceitouSalvar === null){
         alert('Você pode mudar isso na página de configurações')
     }
     
-    setAceitouSalvar(aceitouSalvar)
+    
+    storageAceitouSalvar.setAceitouSalvar(aceitouSalvar)
 }
