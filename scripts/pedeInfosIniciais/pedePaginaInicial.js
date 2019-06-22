@@ -78,6 +78,9 @@ Type coercing
 import { aceitouSalvar as storageAceitouSalvar } from '/scripts/storage/aceitouSalvar.js'
 import { paginaInicial, setPaginaInicial } from '/scripts/storage/paginaInicial.js'
 
+// named export
+import { formataEndereco } from '/scripts/endereco/formataEndereco.js'
+
 if(storageAceitouSalvar === null || storageAceitouSalvar === true){
     // Sem shadowing
     let paginaInicialDefault = paginaInicial
@@ -87,17 +90,13 @@ if(storageAceitouSalvar === null || storageAceitouSalvar === true){
     }
 
     if(paginaInicialDefault) {
-        if (
-            paginaInicialDefault.substring(0, 7) !== 'http://' &&
-            paginaInicialDefault.substring(0,8) !== 'https://'
-        ) {
-            // Assignement Atribuição
-            paginaInicialDefault = 'http://' + paginaInicialDefault
-        }
+        
 
-        $janelaPrincipal.src =  paginaInicialDefault
-        $inputEndereco.value = paginaInicialDefault
+        const enderecoCompleto = formataEndereco(paginaInicialDefault)
 
-        setPaginaInicial(paginaInicialDefault)
+        $janelaPrincipal.src = enderecoCompleto
+        $inputEndereco.value = enderecoCompleto
+
+        setPaginaInicial(enderecoCompleto)
     }
 }

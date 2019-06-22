@@ -1,19 +1,26 @@
 // Encapsulamento
-export let aceitouSalvar = JSON.parse(localStorage.getItem('aceitouSalvar')) //null
-
+let aceitouSalvar = JSON.parse(localStorage.getItem('aceitouSalvar')) //null
 
 // Ambiente onde ela foi criada
 // Acesso a variaveis do ambiente
 // function setAceitouSalvar é uma "Closure"
+//  privada
 function setAceitouSalvar(valor) {
     aceitouSalvar = valor
     localStorage.setItem("aceitouSalvar", valor)
 }
 
-export function setAceitou() {
+function setAceitou() {
     setAceitouSalvar(true)
 }
 
-export function setNaoAceitou() {
+ function setNaoAceitou() {
     setAceitouSalvar(false)
+}
+
+// Revealing Module Pattern
+export {
+    aceitouSalvar,
+    setAceitou,
+    setNaoAceitou
 }
