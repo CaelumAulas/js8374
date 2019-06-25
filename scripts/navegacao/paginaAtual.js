@@ -15,4 +15,28 @@ carregar(enderecoCompleto)
 $janelaPrincipal.addEventListener('load', function salvaPaginaAtual(){
     const endereco = $janelaPrincipal.contentWindow.location.href
     sessionStorage.setItem('paginaAtual', endereco)
+
+    listaSites.push(endereco)
+    posicao++
+})
+
+let listaSites = []
+let posicao = -1
+
+$botaoVoltar.addEventListener('click', function() {
+    if(listaSites.length !== 1) {
+        posicao = posicao - 1
+        carregar(
+            listaSites[posicao]
+        )
+    }
+})
+
+$botaoAvancar.addEventListener('click', function() {
+    if(listaSites.length !== 1) {
+        posicao = posicao + 1
+        carregar(
+            listaSites[posicao]
+        )
+    }
 })
