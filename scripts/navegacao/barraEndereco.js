@@ -1,3 +1,5 @@
+import { carregar } from '/scripts/navegacao/carregar.js'
+import { formataEndereco } from '/scripts/endereco/formataEndereco.js'
 
 $inputEndereco.addEventListener('focus', exibeEnderecoCompleto)
 
@@ -14,3 +16,14 @@ function exibeEnderecoResumido() {
 
     $inputEndereco.value = enderecoResumido
 }
+
+// Todo parâmetro é opcional
+$inputEndereco.addEventListener('keyup', function(evento) {
+    // o navegador executou o callback
+    // as informações
+    const apertouEnter = evento.key === 'Enter'
+    if(apertouEnter) {
+        const enderecoCompleto = formataEndereco($inputEndereco.value)
+        carregar(enderecoCompleto)
+    }
+})
