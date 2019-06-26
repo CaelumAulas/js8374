@@ -36,16 +36,35 @@ function salvar(){
     storagePaginaInicial.setPaginaInicial(enderecoCompleto)
 }
 
+// TODODepois nome no localstorage vir do modulo storage
+/*
+  const chavesPermanentes = [
+        storagePaginaInicial.nome,
+        storageAceitouSalvar.nome   
+    ]
+
+    for(let storage of storages)
+                storage.remove()
+*/
 $botaoLimpaTudo.addEventListener('click', function () {
-    // TODO tudo menos aceitouSalvar e aceitouTermos
+    const chavesPermanentes = [
+        'aceitouSalvar',
+        'aceitouTermos'
+    ]
+    
     const listaChavesLocalStorage = Object.keys(localStorage)
-    for(let i = 0; i < listaChavesLocalStorage.length; i++) {
-        const chave = listaChavesLocalStorage[i]
-        localStorage.removeItem(chave)
+    for(let chave of listaChavesLocalStorage) {
+        const isChavePermanente = chavesPermanentes.includes(chave)
+        
+        if(!isChavePermanente){
+            localStorage.removeItem(chave)
+        }
     }
 
     const listaChavesSessionStorage = Object.keys(sessionStorage)
     for(let chave of listaChavesSessionStorage) {
         sessionStorage.removeItem(chave)
     }
+
+    window.location.reload()
 })
