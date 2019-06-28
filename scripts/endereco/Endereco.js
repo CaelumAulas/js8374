@@ -6,6 +6,8 @@
 // if(this === undefined) {
 //     return new Endereco(endereco)
 // }
+import {CakeEnderecoInvalidoError} from '/scripts/erros/CakeEnderecoInvalidoError.js'
+
 function Endereco(endereco) {
 
     if(
@@ -22,7 +24,21 @@ function Endereco(endereco) {
         enderecoCompleto = 'blank'
         enderecoResumido = 'blank'
     } else {
-        const url = new URL(endereco)
+        if (
+            endereco.substring(0, 7) !== 'http://' &&
+            endereco.substring(0,8) !== 'https://'
+        ) {
+            // Assignement Atribuição
+            endereco = 'http://' + endereco
+        }
+
+        let url
+        try {
+            url = new URL(endereco)
+        } catch(error) {
+            const erroCustomizado = new CakeEnderecoInvalidoError(endereco)
+            throw erroCustomizado
+        }
     
         if(url.hostname === 'localhost') {
             const paginaLocal = url.pathname.replace("/", "")
