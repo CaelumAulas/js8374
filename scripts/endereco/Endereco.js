@@ -1,7 +1,20 @@
-// função construtora
-// função factory
+// função construtora // instanceof funciona
+//     Nome()
+// função factory // larga mão do instanceof
+//     createNome()
 // Fábrica de objetos
+// if(this === undefined) {
+//     return new Endereco(endereco)
+// }
 function Endereco(endereco) {
+
+    if(
+        this === undefined || 
+        (this !== undefined && !(this instanceof Endereco))
+    ) {
+        return new Endereco(endereco)
+    }
+
     let enderecoCompleto
     let enderecoResumido
 
@@ -25,11 +38,25 @@ function Endereco(endereco) {
             enderecoResumido = url.hostname
         }
     }
+
+    /*
+        Quando executa com new
+        new é um operador
+        modifica o this da sua função
+
+        const this = {
+            __proto__: Endereco
+        }
+    */
+
+    this.urlCompleta = enderecoCompleto
+    this.urlResumida = enderecoResumido
     
-    return {
-      urlCompleta: enderecoCompleto,
-      urlResumida: enderecoResumido
-    }
+    
+    /*
+        Quando executa com new
+        return this
+    */
 } 
 
 export { Endereco }
