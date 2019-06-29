@@ -4,7 +4,8 @@ import * as storageAceitouSalvar  from '/scripts/storage/aceitouSalvar.js'
 // named export
 // destructuring
 // desestruturação, explodindo
-import { formataEndereco } from '/scripts/endereco/formataEndereco.js'
+import { Endereco } from '/scripts/endereco/Endereco.js'
+import { CakeEnderecoInvalidoError } from './erros/CakeEnderecoInvalidoErrorClasse.js';
 
 $inputPaginaInicial.value = storagePaginaInicial.paginaInicial
 $inputPermitiuSalvar.checked = storageAceitouSalvar.aceitouSalvar
@@ -30,10 +31,24 @@ function salvar(){
     
     funcaoEscolhida()
 
-    const enderecoCompleto = formataEndereco($inputPaginaInicial.value)
-    $inputPaginaInicial.value = enderecoCompleto
-    
-    storagePaginaInicial.setPaginaInicial(enderecoCompleto)
+    try {
+        const enderecoCompleto = new Endereco($inputPaginaInicial.value)
+
+
+        $inputPaginaInicial.value = enderecoCompleto.toString()
+        storagePaginaInicial.setPaginaInicial(enderecoCompleto)
+    } catch (error){
+        if(error instanceof CakeEnderecoInvalidoError){
+            console.dir(error)
+            console.log('É CakeEnderecoInvalidoError', error instanceof CakeEnderecoInvalidoError)
+            console.log('É erro', error instanceof Error)
+            $inputPaginaInicial.value = ''
+            console.warn(error.toString())
+            alert("Inválido")
+        } else {
+            throw error
+        }
+    }
 }
 
 // TODODepois nome no localstorage vir do modulo storage

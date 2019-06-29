@@ -6,7 +6,12 @@
 // if(this === undefined) {
 //     return new Endereco(endereco)
 // }
-import {CakeEnderecoInvalidoError} from '/scripts/erros/CakeEnderecoInvalidoError.js'
+import {CakeEnderecoInvalidoError} from '/scripts/erros/CakeEnderecoInvalidoErrorClasse.js'
+
+
+function toString() {
+    return this.urlCompleta
+}
 
 function Endereco(endereco) {
 
@@ -67,13 +72,15 @@ function Endereco(endereco) {
 
     this.urlCompleta = enderecoCompleto
     this.urlResumida = enderecoResumido
-    
-    
     /*
         Quando executa com new
         return this
     */
-} 
+}
+
+Endereco.prototype = {
+    toString: toString
+}
 
 export { Endereco }
     
