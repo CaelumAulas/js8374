@@ -73,3 +73,43 @@ iframe {
     height: 100%;
     border: none;
 }
+
+small {
+    position: absolute;
+    font-size: .9em;
+    padding: .2em .5em;
+    background: #F4F4F4;
+    bottom: .25em;
+    left: .25em;
+    border: 1px solid rgba(0,0,0,.5);
+}
+
+nav {
+    display: block;
+    padding: 0;
+    margin: 0;
+    background-color: #F4F4F4;
+    border-bottom: 1px solid #e1e1e2;
+    display: flex;
+    justify-content: stretch;
+    align-items: center;
+}
+
+nav > p {
+    padding: .5em;
+    max-width: 20em;
+    cursor: pointer;
+}
+
+nav > p:first-child {
+    padding-left: 1em
+} 
+
+nav> :nth-child(n)+br:nth-child(n) {
+    content: "A" !important;
+    display: inline-block !important;
+    width: 1px;
+    height: 1.2em;
+    background-color: rgba(0, 0, 0, .2);
+    margin: 0 .42em 0 .42em;
+}
