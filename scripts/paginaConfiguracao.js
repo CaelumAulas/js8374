@@ -36,29 +36,27 @@ $botaoSalvar.onclick = salvar
 // Function declaration
 
 // Callback Hell
-function salvar(){
-
-    // Expressão de função
-    // Function expression
-    const funcaoEscolhida = $inputPermitiuSalvar.checked === true 
-        ? storageAceitouSalvar.setAceitou
-        : storageAceitouSalvar.setNaoAceitou
-    
-    funcaoEscolhida()
-
+async function salvar(){
     try {
+
+        // Expressão de função
+        // Function expression
+        const funcaoEscolhida = $inputPermitiuSalvar.checked === true 
+            ? storageAceitouSalvar.setAceitou
+            : storageAceitouSalvar.setNaoAceitou
+        
+        funcaoEscolhida()
+
+    
         const enderecoCompleto = new Endereco($inputPaginaInicial.value)
 
-       verificaEndereco(
-           enderecoCompleto,           
-           function deuBom(){
-               $inputPaginaInicial.value = enderecoCompleto.toString()
-               storagePaginaInicial.setPaginaInicial(enderecoCompleto)
-           },
-           deuRuim
-        )
+        await verificaEndereco(enderecoCompleto)
 
-    } catch (error){
+        $inputPaginaInicial.value = enderecoCompleto.toString()
+        storagePaginaInicial.setPaginaInicial(enderecoCompleto)
+
+
+    } catch(error) {
         if(error instanceof CakeEnderecoInvalidoError){
             // Função de callback
            deuRuim(error)
