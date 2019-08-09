@@ -2,7 +2,7 @@ import { CakeEnderecoInvalidoError } from '/scripts/erros/CakeEnderecoInvalidoEr
 
 // Função assíncrona
 // Padrão antigo de se fazer funções assíncronas
-export function verificaEndereco(endereco) {
+export function verificaEnderecoAntiga(endereco) {
 
     // ECMA
     return new Promise(function(resolve, reject) {
@@ -40,5 +40,21 @@ export function verificaEndereco(endereco) {
         })
     
     })
+
+}
+
+export function verificaEndereco(endereco) {
+
+    return fetch(endereco)
+        .then(function(informacoes) {
+            if(informacoes.status === 404) {
+                const erro = new CakeEnderecoInvalidoError(endereco)
+                throw erro
+            }
+        })
+        .catch(function(error) {
+            const erro = new CakeEnderecoInvalidoError(endereco)
+            throw erro
+        })
 
 }
