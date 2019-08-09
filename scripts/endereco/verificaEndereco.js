@@ -43,18 +43,16 @@ export function verificaEnderecoAntiga(endereco) {
 
 }
 
-export function verificaEndereco(endereco) {
-
-    return fetch(endereco)
-        .then(function(informacoes) {
-            if(informacoes.status === 404) {
-                const erro = new CakeEnderecoInvalidoError(endereco)
-                throw erro
-            }
-        })
-        .catch(function(error) {
+export async function verificaEndereco(endereco) {
+    try{
+        const informacoes = await fetch(endereco)
+            
+        if(informacoes.status === 404) {
             const erro = new CakeEnderecoInvalidoError(endereco)
             throw erro
-        })
-
+        }
+    } catch(error) {
+        const erro = new CakeEnderecoInvalidoError(endereco)
+        throw erro
+    }
 }

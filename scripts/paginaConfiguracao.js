@@ -50,6 +50,8 @@ async function salvar(){
     
         const enderecoCompleto = new Endereco($inputPaginaInicial.value)
 
+        $inputPaginaInicial.value = "... " + enderecoCompleto
+
         await verificaEndereco(enderecoCompleto)
 
         $inputPaginaInicial.value = enderecoCompleto.toString()
