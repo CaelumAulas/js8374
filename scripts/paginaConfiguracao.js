@@ -1,11 +1,24 @@
 import * as storagePaginaInicial from '/scripts/storage/paginaInicial.js'
 import * as storageAceitouSalvar  from '/scripts/storage/aceitouSalvar.js'
 
+import { verificaEndereco } from '/scripts/endereco/verificaEndereco.js'
+
 // named export
 // destructuring
 // desestruturação, explodindo
 import { Endereco } from '/scripts/endereco/Endereco.js'
-import { CakeEnderecoInvalidoError } from './erros/CakeEnderecoInvalidoErrorClasse.js';
+import { CakeEnderecoInvalidoError } from '/scripts/erros/CakeEnderecoInvalidoErrorClasse.js';
+
+
+function deuRuim(error){
+    console.dir(error)
+    console.log('É CakeEnderecoInvalidoError', error instanceof CakeEnderecoInvalidoError)
+    console.log('É erro', error instanceof Error)
+    $inputPaginaInicial.value = ''
+    console.warn(error.toString())
+    alert("Inválido")
+}
+
 
 $inputPaginaInicial.value = storagePaginaInicial.paginaInicial
 $inputPermitiuSalvar.checked = storageAceitouSalvar.aceitouSalvar
@@ -21,6 +34,8 @@ $botaoSalvar.onclick = salvar
 // executada em um outro momento do tempo
 // Declaração de função
 // Function declaration
+
+// Callback Hell
 function salvar(){
 
     // Expressão de função
@@ -34,17 +49,19 @@ function salvar(){
     try {
         const enderecoCompleto = new Endereco($inputPaginaInicial.value)
 
+       verificaEndereco(
+           enderecoCompleto,           
+           function deuBom(){
+               $inputPaginaInicial.value = enderecoCompleto.toString()
+               storagePaginaInicial.setPaginaInicial(enderecoCompleto)
+           },
+           deuRuim
+        )
 
-        $inputPaginaInicial.value = enderecoCompleto.toString()
-        storagePaginaInicial.setPaginaInicial(enderecoCompleto)
     } catch (error){
         if(error instanceof CakeEnderecoInvalidoError){
-            console.dir(error)
-            console.log('É CakeEnderecoInvalidoError', error instanceof CakeEnderecoInvalidoError)
-            console.log('É erro', error instanceof Error)
-            $inputPaginaInicial.value = ''
-            console.warn(error.toString())
-            alert("Inválido")
+            // Função de callback
+           deuRuim(error)
         } else {
             throw error
         }
